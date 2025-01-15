@@ -1,0 +1,49 @@
+# Ignorar carpetas de compilación y binarios
+[D|d]ebug/
+[D|d]ebugPublic/
+[D|d]ist/
+[D|d]ist-*/
+[D|d]ebug*/
+[D|d]ev/
+[D|d]ebug/
+[B|b]in/
+[B|b]in-*/
+[O|o]bj/
+[O|o]bj-*/
+
+# Ignorar carpetas específicas de dependencias
+node_modules/
+jspm_packages/
+
+# Ignorar configuraciones del sistema
+.vscode/
+.idea/
+.vs/
+
+# Archivos y carpetas específicos de Git
+.git/
+
+# Ignorar archivos de configuración de Visual Studio
+.vs2019/
+.vs2017/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de configuración de ASP.NET
+appsettings.json
+appsettings.Development.json
+
+# Otros archivos de configuración o cachés
+.vscode/
+*.log
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ignorar carpetas específicas de Angular
+/galery.client/node_modules/
+# Ignorar archivos temporales o generados automáticamente
+/.angular/
