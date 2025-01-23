@@ -1,4 +1,7 @@
+using BLL.Services;
 using DAL;
+using DAL.Repositories;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,13 +9,17 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 
 builder.Services.AddSingleton(new DatabaseConnection(connectionString));
 
-
+//builder.Services.AddApplicationServices();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<UserRepository>();
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 

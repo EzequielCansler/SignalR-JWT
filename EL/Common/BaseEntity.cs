@@ -11,11 +11,16 @@ namespace EL.Common
         {     
             public int Id { get; set; }
 
-            public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;
+            public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+
+            public DateTime GetCreatedAt()
+            {
+                return CreatedAt;
+            }
 
             public override string ToString()
             {
-                return $"Id={Id}, CreatedAt={CreatedAt}";
+                    return $"Id={Id}, CreatedAt={CreatedAt}";
             }
         }
     }
