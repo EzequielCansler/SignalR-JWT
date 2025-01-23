@@ -1,83 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BLL.Services;
+using EL.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Galery.Server.Controllers
 {
-    public class UserController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
+        private readonly UserService _userService;
+        public UserController(UserService userService) { 
+            _userService = userService;
+        }
+
         // GET: userController
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult<List<User>> GetAllUsers()
         {
-            return View();
+            var users = _userService.GetAll();
+            return Ok(users);
         }
 
-        // GET: userController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: userController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: userController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: userController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: userController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: userController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: userController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
