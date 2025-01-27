@@ -18,7 +18,7 @@ namespace DAL
             return new SqlConnection(_connectionString);
         }
 
-        public int ExecuteNonQuery(string sql, SqlParameter[]? parameters = null)
+        public int ExecuteNonQuery(string sql, SqlParameter[]? parameters = null) // GET devuelve un conjunto de resultados.
         {
             using var connection = GetConnection();
             using var command = new SqlCommand(sql, connection);
@@ -31,7 +31,8 @@ namespace DAL
             connection.Open();
             return command.ExecuteNonQuery(); 
         }
-        public DataTable ExecuteQuery(string sql, SqlParameter[]? parameters = null)
+
+        public DataTable ExecuteQuery(string sql, SqlParameter[]? parameters = null) // para POST PUT y DELETE, No devuevle datos.
         {
             using var connection = GetConnection();
             using var command = new SqlCommand(sql, connection);
