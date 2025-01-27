@@ -1,4 +1,5 @@
 ﻿using EL.Entities;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace DAL.Repositories
@@ -21,7 +22,7 @@ namespace DAL.Repositories
             {
                 User user = new User
                 {
-                    Id = Convert.ToInt32(row["ID"]),
+                    Id = Guid.Parse(row["Id"].ToString()),
                     Name = row["Name"].ToString(),
                     Email = row["Email"].ToString()           
                 };
@@ -29,6 +30,26 @@ namespace DAL.Repositories
                 users.Add(user);
             }
             return users;
+        }
+
+        public bool Create(User user) 
+        {
+            string sql = @"
+                INSERT INTO [User] (Name,Email,PasswordHash,RoleId,IsActive,CreatedAt)
+                VALUES (@Name,@Email,@PasswordHash,@RoleId,@IsActive,GETUTDATE());
+            ";
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Name",user.Name),
+                new SqlParameter("@Email",user.Email),
+                new SqlParameter("@PasswordHash",user.PasswordHash),
+                new SqlParameter("@RoleId",user.RoleId),
+                new SqlParameter("@IsActive",user.IsActive),
+            };
+
+            int rowsAffected = _connection.ExecuteNonQuery(sql, parameters);
+            return rowsAffected > 0;
         }
     }
 }

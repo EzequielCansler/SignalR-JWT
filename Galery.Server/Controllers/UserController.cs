@@ -22,5 +22,47 @@ namespace Galery.Server.Controllers
             return Ok(users);
         }
 
+        [HttpPost]
+        public ActionResult Create(User user)
+        {
+            try
+            {
+                bool result = _userService.Create(user);
+
+                if (result) 
+                {
+                    return CreatedAtAction(nameof(Create), new { id = user.Id }, new
+                    {
+                        Success = true,
+                        Massage = "Usuario Creado",
+                        UserId = user.Id
+                    });
+                }
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    Success = false,
+                    Mesagge = "No se pudo crear el usuario."
+                });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Mesagge = ex.Message
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,new
+                {
+                    Success = false,
+                    Mesagge = ex.Message,
+                    Detail = ex.InnerException?.Message
+                });
+
+            }
+        }
+
     }
 }
